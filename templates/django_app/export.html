@@ -1,0 +1,33 @@
+{% extends "components/base.html" %}
+{% load static %}
+
+
+{% block title %}Выгрузка предложений{% endblock title %}
+
+{% block header %}Выгрузка полезных предложений:{% endblock header %}
+
+{% block description %}эта страница содержит форму для выгрузки полезных предложений.{% endblock description %}
+
+{% block main %}
+<div class="m-0 p-1">
+    <hr/>
+    {% if message %}
+        <div class="text-success display-5">{{ message }}</div>
+        <hr/>
+    {% endif %}
+    <div class="display-6 text-center fw-bold text-warning">
+        <p class="">Комаровское ГП</p>
+    </div>
+    {% if request.user.is_authenticated %}
+        <div class="text-center lead">
+            <p class="">СКАЧАЙТЕ ФАЙЛ:</p>
+            <p class=""><a class="btn btn-lg btn-outline-success" href="/media/{{filename}}">{{ filename }}</a></p>
+        </div>
+    {% else %}
+        <div class="text-center lead">
+            <p class="">ВОЙДИТЕ В СИСТЕМУ:</p>
+            <p class=""><a class="btn btn-lg btn-outline-primary" href="/admin">войти</a></p>
+        </div>
+    {% endif %}
+</div>
+{% endblock main %}

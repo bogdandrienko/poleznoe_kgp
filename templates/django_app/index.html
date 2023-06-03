@@ -1,0 +1,227 @@
+{% extends "components/base.html" %}
+{% load static %}
+
+
+{% block title %}Подача предложения{% endblock title %}
+
+{% block header %}Подача полезного предложения:{% endblock header %}
+
+{% block description %}эта страница содержит форму для заполнения и отправки предложений{% endblock description %}
+
+{% block main %}
+<div class="m-0 p-1">
+    <hr/>
+    {% if message %}
+        <div class="text-success display-5">{{ message }}</div>
+        <hr/>
+    {% endif %}
+    <div class="display-6 text-center fw-bold text-warning">
+        <p class="">Комаровское ГП</p>
+    </div>
+    <div class="text-center lead">
+        <p class="">ПОЛЕЗНОЕ ПРЕДЛОЖЕНИЕ</p>
+    </div>
+    <form action="{% url 'index' %}"
+              method="POST"
+              target="_self"
+              enctype="multipart/form-data"
+              name="create"
+              autocomplete="on"
+              class="text-center"
+    >
+        {% csrf_token %}
+        <div class="text-start">
+
+            <div class="fw-bold mt-3 shadow p-1 w-50">
+                <p class="">о себе:</p>
+            </div>
+            <label class="form-control-sm w-100 m-1">
+                ФИО(полностью):
+                <input type="text"
+                       name="author"
+                       required
+                       placeholder="-> вводить данные сюда <-"
+                       value=""
+                       minlength="1"
+                       maxlength="200"
+                       class="form-control form-control-sm"
+                />
+                <small class="text-muted">количество символов: 1-200</small>
+            </label>
+            <label class="form-control-sm w-75 m-1">
+                Подразделение:
+                <select name="subdivision" class="form-control form-control-sm" required>
+                    <option selected value="">выберите один из пунктов <-</option>
+                    <option value="АСУТП">АСУТП</option>
+                    <option value="АТЦ">АТЦ</option>
+                    <option value="АХО">АХО</option>
+                    <option value="Бухг.">Бухг.</option>
+                    <option value="ГорУч">ГорУч</option>
+                    <option value="МаркОт">МаркОт</option>
+                    <option value="МехСл">МехСл</option>
+                    <option value="ОГП">ОГП</option>
+                    <option value="ОИТиС">ОИТиС</option>
+                    <option value="ОКС">ОКС</option>
+                    <option value="ОНУП">ОНУП</option>
+                    <option value="ОСО">ОСО</option>
+                    <option value="ОТиЗ">ОТиЗ</option>
+                    <option value="ОЭКиМ">ОЭКиМ</option>
+                    <option value="ПАЛ">ПАЛ</option>
+                    <option value="ПБиОТ">ПБиОТ</option>
+                    <option value="ПТО">ПТО</option>
+                    <option value="ПЭО">ПЭО</option>
+                    <option value="СБ">СБ</option>
+                    <option value="СГГ">СГГ</option>
+                    <option value="СП">СП</option>
+                    <option value="ССХ">ССХ</option>
+                    <option value="УчВод">УчВод</option>
+                    <option value="ЦЖДТ">ЦЖДТ</option>
+                    <option value="ЭС">ЭС</option>
+                    <option value="ЮрО">ЮрО</option>
+                </select>
+            </label>
+            <label class="form-control-sm w-100 m-1">
+                Профессия, должность:
+                <input type="text"
+                       name="position"
+                       required
+                       value=""
+                       minlength="1"
+                       maxlength="200"
+                       class="form-control form-control-sm"
+                />
+                <small class="text-muted">количество символов: 1-200</small>
+            </label>
+
+            <div class="fw-bold mt-3 shadow p-1 w-50">
+                <p class="">контактные данные:</p>
+            </div>
+            <label class="form-control-sm w-75 m-1">
+                Номер телефона:
+                <input type="tel"
+                       name="phone"
+                       required
+                       value=""
+                       minlength="1"
+                       maxlength="100"
+                       class="form-control form-control-sm"
+                />
+                <small class="text-muted">количество символов: 1-100</small>
+            </label>
+            <label class="form-control-sm w-75 m-1">
+                Электронная почта(e-mail):
+                <input type="email"
+                       name="email"
+                       value=""
+                       minlength="1"
+                       maxlength="300"
+                       class="form-control form-control-sm"
+                />
+                <small class="text-muted">количество символов: 1-300</small>
+            </label>
+
+            <div class="fw-bold mt-3 shadow p-1 w-50">
+                <p class="">суть полезного предложения:</p>
+            </div>
+            <label class="form-control-sm w-100 m-1">
+                Предложение(наименование):
+                <input type="text"
+                       name="title"
+                       required
+                       value=""
+                       minlength="1"
+                       maxlength="300"
+                       class="form-control form-control-sm"
+                />
+                <small class="text-muted">количество символов: 1-300</small>
+            </label>
+            <label class="form-control-sm w-100 m-1">
+                Описание предложения:
+                <textarea name="description"
+                          required
+                          minlength="1"
+                          maxlength="3000"
+                          rows="5"
+                          class="form-control form-control-sm"
+                ></textarea>
+                <small class="text-muted">количество символов: 1-3000</small>
+            </label>
+            <label class="form-control-sm w-100 m-1">
+                Краткое описание объекта, место применения:
+                <textarea name="place"
+                          required
+                          minlength="1"
+                          maxlength="2000"
+                          rows="3"
+                          class="form-control form-control-sm"
+                ></textarea>
+                <small class="text-muted">количество символов: 1-2000</small>
+            </label>
+            <label class="form-control-sm w-100 m-1">
+                Ожидаемый эффект:
+                <textarea name="effect"
+                          required
+                          minlength="1"
+                          maxlength="1000"
+                          rows="2"
+                          class="form-control form-control-sm"
+                ></textarea>
+                <small class="text-muted">количество символов: 1-1000</small>
+            </label>
+            <label class="form-control-sm w-100 m-1">
+                Необходимые ТМЦ:
+                <textarea name="need"
+                          required
+                          minlength="1"
+                          maxlength="1000"
+                          rows="2"
+                          class="form-control form-control-sm"
+                ></textarea>
+                <small class="text-muted">количество символов: 1-1000</small>
+            </label>
+
+            <div class="fw-bold mt-3 shadow p-1 w-50">
+                <p class="">дополнительно:</p>
+            </div>
+            <label class="form-control-sm w-75 m-1">
+                Имеются ли дополнительные материалы? (перечень схем, чертежей, технических и экономических расчетов):
+                <select name="is_feedback" class="form-control form-control-sm" required>
+                    <option selected value="">выберите один из пунктов <-</option>
+                    <option value="нет">нет, материала нет</option>
+                    <option value="да">да, имеется дополнительный материал</option>
+                </select>
+                <small class="text-danger">обязательно отметьте этот пункт (да/нет)!</small>
+            </label>
+            <label class="form-control-sm w-75 m-1">
+                Примечание:
+                <textarea name="link"
+                          minlength="1"
+                          maxlength="900"
+                          rows="3"
+                          class="form-control form-control-sm"
+                ></textarea>
+            </label>
+        </div>
+        <hr/>
+        <div class="container-fluid text-center">
+            <ul class="row row-cols-auto row-cols-md-auto row-cols-lg-auto nav justify-content-center">
+                <li class="m-1">
+                    <button class="btn btn-lg btn-outline-primary" type="submit">отправить</button>
+                </li>
+                <li class="m-1">
+                    <button class="btn btn-lg btn-outline-warning" type="reset">сбросить</button>
+                </li>
+            </ul>
+        </div>
+    </form>
+    <div class="text-center lead">
+        <p class="">Все полученные предложения будут рассмотрены!</p>
+        <p>
+            <img class="img-fluid" width="600" alt="qr" src="{% static "image/qr_link.png" %}"/>
+        </p>
+        <p>
+            <img class="img-fluid" width="200" alt="qr" src="{% static "image/qr_link.png" %}"/>
+        </p>
+    </div>
+</div>
+{% endblock main %}
